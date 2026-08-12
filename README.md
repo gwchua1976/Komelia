@@ -1,4 +1,4 @@
-# Komelia - Komga media client
+# Komelia - Komga media client with Auto rotation lock and refresh optimization for e-ink devices.
 
 I added some changes to the original (awesome!) Komelia which I believe would be useful for e-ink devices.
 
