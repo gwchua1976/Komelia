@@ -12,7 +12,6 @@ import snd.komelia.KomgaAuthenticationState
 import snd.komelia.offline.sync.model.DownloadEvent
 import snd.komelia.ui.platform.PlatformType
 import snd.komelia.ui.platform.WindowSizeClass
-import snd.komelia.ui.strings.EnStrings
 import snd.komga.client.library.KomgaLibrary
 import snd.komga.client.sse.KomgaEvent
 
@@ -24,7 +23,6 @@ val LocalKomfIntegration = compositionLocalOf { flowOf(false) }
 val LocalKeyEvents = compositionLocalOf<SharedFlow<KeyEvent>> { error("Key events are not set") }
 val LocalWindowWidth = compositionLocalOf<WindowSizeClass> { error("Window size is not set") }
 val LocalWindowHeight = compositionLocalOf<WindowSizeClass> { error("Window size is not set") }
-val LocalStrings = staticCompositionLocalOf { EnStrings }
 val LocalPlatform = compositionLocalOf<PlatformType> { error("Platform type is not set") }
 val LocalTheme = compositionLocalOf { Theme.DARK }
 val LocalWindowState = compositionLocalOf<AppWindowState> { error("Window state was not initialized") }
@@ -32,5 +30,6 @@ val LocalLibraries = compositionLocalOf<StateFlow<List<KomgaLibrary>>> { error("
 val LocalReloadEvents = staticCompositionLocalOf<SharedFlow<Unit>> { error("Reload event flow was not initialized") }
 val LocalBookDownloadEvents =
     staticCompositionLocalOf<SharedFlow<DownloadEvent>?> { error("Book download event flow was not initialized") }
+val LocalOfflineAvailable = compositionLocalOf { false }
 val LocalOfflineMode = staticCompositionLocalOf<StateFlow<Boolean>> { error("offline mode flow was not initialized") }
 val LocalKomgaState = staticCompositionLocalOf<KomgaAuthenticationState> { error("komga state was not initialized") }
