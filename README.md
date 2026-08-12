@@ -8,6 +8,10 @@ I added some changes to the original (awesome!) Komelia which I believe would be
    - the area of the touchscreen tap for next and previous page stays in the original location.
    - The setting can be turned on and off in the page display menu.
 
+  
+### Below are the text from the original Komelia.
+
+
 ### Downloads:
 
 - Latest prebuilt release is available at https://github.com/Snd-R/Komelia/releases
