@@ -1,5 +1,12 @@
 # Komelia - Komga media client
 
+I added some changes to the original (awesome!) Komelia which I believe would be useful for e-ink devices.
+
+1) Set the image resize to be done first before display of comic book image.
+   - this reduces the flicker/refreshes on e-ink devices
+2) I set a "GTC auto rotate" function.  If enabled, rotation is locked.  if the page is a wider than it is taller, it will display the page in the best orientation automatically.
+   - the area of the touchscreen tap for next and previous page stays in the original location.
+
 ### Downloads:
 
 - Latest prebuilt release is available at https://github.com/Snd-R/Komelia/releases
