@@ -25,6 +25,7 @@ kotlin {
                 "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=snd.komelia.ui.platform.CommonParcelize",
             )
         }
+        androidResources { enable = true }
     }
 
     jvm {
@@ -33,7 +34,6 @@ kotlin {
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        outputModuleName = "komelia-core"
         browser()
     }
 
@@ -85,9 +85,9 @@ kotlin {
             implementation(libs.richEditor.compose.get().toString()){
                 exclude(group = "org.jetbrains.compose.material", module = "material")
             }
-            implementation(libs.voyager.screenmodel)
-            implementation(libs.voyager.navigator)
-            implementation(libs.voyager.transition)
+            api(libs.voyager.screenmodel)
+            api(libs.voyager.navigator)
+            api(libs.voyager.transition)
 
         }
 
