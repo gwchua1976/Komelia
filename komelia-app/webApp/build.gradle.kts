@@ -29,6 +29,9 @@ kotlin {
     }
 
     sourceSets {
+        wasmJsMain {
+            languageSettings.optIn("kotlin.js.ExperimentalWasmJsInterop")
+        }
         commonMain.dependencies {
             implementation(projects.komeliaApp.shared)
             implementation(projects.komeliaUi)
@@ -43,7 +46,7 @@ kotlin {
 
             implementation(libs.kotlin.logging)
             implementation(libs.kotlinx.browser)
-            implementation(libs.indexedd)
+            implementation(libs.indexeddb)
             implementation(libs.filekit.core)
         }
 
