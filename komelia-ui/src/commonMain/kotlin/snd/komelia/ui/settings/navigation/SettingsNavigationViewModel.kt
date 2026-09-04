@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import snd.komelia.AppNotifications
 import snd.komelia.KomgaAuthenticationState
+import snd.komelia.http.ApiKeyStore
 import snd.komelia.komga.api.KomgaBookApi
 import snd.komelia.komga.api.KomgaUserApi
 import snd.komelia.offline.settings.OfflineSettingsRepository
@@ -35,6 +36,7 @@ class SettingsNavigationViewModel(
     private val userApi: KomgaUserApi,
     private val komgaSharedState: KomgaAuthenticationState,
     private val secretsRepository: SecretsRepository,
+    private val apiKeyStore: ApiKeyStore,
     private val offlineSettingsRepository: OfflineSettingsRepository?,
     private val isOffline: StateFlow<Boolean>,
     private val currentServerUrl: Flow<String>,
@@ -77,6 +79,7 @@ class SettingsNavigationViewModel(
             }
 
             secretsRepository.deleteCookie(currentServerUrl.first())
+            apiKeyStore.deleteApiKey(currentServerUrl.first())
             komgaSharedState.reset()
 
             when (platformType) {

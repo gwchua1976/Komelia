@@ -1,12 +1,13 @@
 [versions]
-app-version = "0.18.6"
+app-version = "0.19.1"
 agp = "9.1.1"
 android-compileSdk = "37"
-android-minSdk = "26"
 android-targetSdk = "37"
+android-minSdk = "26"
+android-versionCode = "22"
 
 androidx-activityCompose = "1.13.0"
-androidx-appcompat = "1.7.1"
+androidx-appcompat = "1.8.0"
 androidx-core-ktx = "1.19.0"
 androidx-datastore = "1.2.1"
 androix-documentfile = "1.1.0"
@@ -14,22 +15,21 @@ androidx-window = "1.5.1"
 androidx-workManager = "2.11.2"
 
 cache4k = "0.14.0"
-coil = "3.5.0"
+coil = "3.6.1"
 commons-compress = "1.28.0"
-compose-multiplatform = "1.12.0-rc01"
+compose-multiplatform = "1.12.0"
 compose-material3 = "1.12.0-alpha03"
 compose-materialIconsExtended = "1.7.3"
 directories = "26"
-exposed = "1.4.0"
+exposed = "1.5.0"
 hikari = "2.4.13"
-filekit = "0.14.2"
+filekit = "0.15.0"
 flyway = "9.22.3"
 indexeddb = "0.12.0"
 java-keyring = "1.0.4"
-junrar = "8.1.0"
-komf-client = "1.6.2"
-komga-client = "0.10.3"
-kotlin = "2.4.20-RC"
+komf-client = "2.0.0"
+komga-client = "0.11.0"
+kotlin = "2.4.20-RC2"
 kotlin-logging = "8.0.4"
 kotlinx-browser = "0.5.0"
 kotlinx-coroutines = "1.11.0"
@@ -41,7 +41,7 @@ ksoup = "0.2.6"
 jbr-api = "1.10.1"
 logback = "1.6.3"
 logback-android = "3.0.0"
-markdown = "0.7.8"
+markdown = "0.7.9"
 okhttp = "5.5.0"
 reorderable = "3.1.0"
 richEditor = "1.1.0"
@@ -83,7 +83,6 @@ filekit-dialogs-compose = { module = "io.github.vinceglb:filekit-dialogs-compose
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 indexeddb = { module = "com.juul.indexeddb:core", version.ref = "indexeddb" }
 java-keyring = { module = "com.github.javakeyring:java-keyring", version.ref = "java-keyring" }
-junrar = { module = "com.github.junrar:junrar", version.ref = "junrar" }
 komf-client = { module = "io.github.snd-r.komf:client", version.ref = "komf-client" }
 komga-client = { module = "io.github.snd-r:komga-client", version.ref = "komga-client" }
 kotlin-logging = { module = "io.github.oshai:kotlin-logging", version.ref = "kotlin-logging" }

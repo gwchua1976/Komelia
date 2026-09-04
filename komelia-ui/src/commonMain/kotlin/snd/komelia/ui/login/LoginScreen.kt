@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -71,28 +72,49 @@ class LoginScreen : Screen {
         rootNavigator: Navigator
     ) {
         val state = viewModel.state.collectAsState()
+        val platform = LocalPlatform.current
 
         when (state.value) {
-            Loading, Uninitialized -> LoginLoadingContent(viewModel::cancel)
+            Uninitialized, Loading -> LoginLoadingContent(viewModel::cancel)
 
-            is Error -> LoginContent(
-                url = viewModel.url.collectAsState().value,
-                onUrlChange = { viewModel.url.value = it },
-                user = viewModel.user.collectAsState().value,
-                onUserChange = { viewModel.user.value = it },
-                password = viewModel.password.collectAsState().value,
-                onPasswordChange = { viewModel.password.value = it },
-                userLoginError = viewModel.userLoginError.collectAsState().value,
-                autoLoginError = viewModel.autoLoginError.collectAsState().value,
-                onAutoLoginRetry = viewModel::retryAutoLogin,
-                onLogin = viewModel::loginWithCredentials,
-                offlineIsAvailable = viewModel.offlineIsAvailable.collectAsState().value,
-                onOfflineSelect = { rootNavigator.replaceAll(OfflineLoginScreen()) },
-                canGoOfflineAsCurrentUser = viewModel.canGoOfflineAsCurrentUser.collectAsState(false).value,
-                goOfflineAsCurrentUser = viewModel::offlineLogin
-            )
+            is Error -> {
+                when (platform) {
+                    MOBILE, DESKTOP -> LoginContent(
+                        url = viewModel.url.collectAsState().value,
+                        onUrlChange = { viewModel.url.value = it },
+                        user = viewModel.user.collectAsState().value,
+                        onUserChange = { viewModel.user.value = it },
+                        password = viewModel.password.collectAsState().value,
+                        onPasswordChange = { viewModel.password.value = it },
+                        userLoginError = viewModel.userLoginError.collectAsState().value,
+                        autoLoginError = viewModel.autoLoginError.collectAsState().value,
+                        onAutoLoginRetry = viewModel::retryAutoLogin,
+                        onLogin = viewModel::loginWithCredentials,
+                        offlineIsAvailable = viewModel.offlineIsAvailable.collectAsState().value,
+                        onOfflineSelect = { rootNavigator.replaceAll(OfflineLoginScreen()) },
+                        canGoOfflineAsCurrentUser = viewModel.canGoOfflineAsCurrentUser.collectAsState(false).value,
+                        goOfflineAsCurrentUser = viewModel::offlineLogin
+                    )
 
-            is Success -> rootNavigator.replaceAll(MainScreen())
+                    WEB_KOMF -> KomfLoginContent(
+                        url = viewModel.url.collectAsState().value,
+                        onUrlChange = { viewModel.url.value = it },
+                        apiKey = viewModel.apiKey.collectAsState().value,
+                        onApiKeyChange = { viewModel.apiKey.value = it },
+                        userLoginError = viewModel.userLoginError.collectAsState().value,
+                        autoLoginError = viewModel.autoLoginError.collectAsState().value,
+                        onAutoLoginRetry = viewModel::retryAutoLogin,
+                        onLogin = viewModel::loginWithApiKey,
+                    )
+                }
+            }
+
+            is Success -> {
+                rootNavigator.replaceAll(MainScreen())
+
+                @OptIn(InternalVoyagerApi::class)
+                rootNavigator.dispose(this)
+            }
         }
 
     }
