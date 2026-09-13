@@ -102,12 +102,16 @@ class PagedReaderState(
         screenScaleState.setScrollState(null)
         screenScaleState.setScrollOrientation(Orientation.Vertical, false)
 
-        combine(
-            screenScaleState.transformation,
-            screenScaleState.areaSize,
-            readerState.imageStretchToFit
-        ) { }.drop(1)
+
+        combine(screenScaleState.areaSize, readerState.imageStretchToFit) {}
+            .drop(1)
             .conflate()
+            .onEach {
+                val currentPage = currentSpread.value.pages.first().metadata
+                loadPage(spreadIndexOf(currentPage))
+            }.launchIn(stateScope)
+
+        screenScaleState.transformation.drop(1).conflate()
             .onEach {
                 val spread = currentSpread.value
                 updateSpreadImageState(
@@ -122,7 +126,6 @@ class PagedReaderState(
                 val targetSize = fitToScreenZoom(spread.pages, maxPageSize, layout.value)
                 val targetSizeForScale = if (gtcApplied) IntSize(targetSize.height, targetSize.width) else targetSize
                 screenScaleState.setTargetSize(targetSizeForScale.toSize())
-                delay(100)
             }
             .launchIn(stateScope)
 
@@ -170,7 +173,7 @@ class PagedReaderState(
                     return@forEachIndexed
                 }
 
-                val imageDisplaySize = image.calculateSizeForArea(maxPageSize, stretchToFit)?:maxPageSize
+                val imageDisplaySize = image.calculateSizeForArea(maxPageSize, stretchToFit) ?: maxPageSize
 
                 val imageHorizontalVisibleWidth =
                     (imageDisplaySize.width * zoomFactor - areaSize.width) / 2
