@@ -19,7 +19,13 @@ class AppMigrations : MigrationResourcesProvider() {
         "V10__komf_settings.sql",
         "V11__home_filters.sql",
         "V12__offline_mode.sql",
+        // V13 is ours (fork-local; existing installs already applied it under
+        // this exact name/checksum via Flyway). Upstream's own V13 migration
+        // is renumbered to V14 here to avoid colliding with it - see
+        // gtc-branch-strategy memory for why (Flyway validates by version +
+        // checksum, so renaming our already-applied V13 would break upgrades).
         "V13__gtc_page_orientation.sql",
+        "V14__komf_mangabaka.sql",
     )
 
     override suspend fun getMigration(name: String): ByteArray? {
